@@ -1,0 +1,99 @@
+/* General Styles */
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.sidebar {
+    width: 220px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    padding-top: 20px;
+    background-color: #343a40;
+    color: #fff;
+    z-index: 1000; /* Ensure sidebar stays above content */
+}
+
+.sidebar .nav-link {
+    color: #ccc;
+}
+
+.sidebar .nav-link.active {
+    color: #ffffff;
+    background-color: #007bff;
+    border-radius: 0.25rem;
+}
+
+.sidebar .nav-link:hover {
+    color: #fff;
+    background-color: #495057;
+    border-radius: 0.25rem;
+}
+
+.container-fluid {
+    margin-left: 0px; /* Further increase margin to create more space between the sidebar and content */
+    padding-top: 10px;
+}
+
+.navbar {
+    background-color: #007bff;
+    padding: 15px;
+    z-index: 1001; /* Ensure navbar stays above the sidebar */
+    position: relative;
+    margin-left: 220px; /* Align navbar with the content area */
+}
+
+.navbar-brand {
+    color: #99a5e3;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.navbar-brand .logo {
+    width: 40px;
+    height: auto;
+    margin-right: 10px;
+}
+
+.jumbotron {
+    background-color: #6aa5e3;
+    color: white;
+    padding: 30px;
+    border-radius: 0.5rem;
+    margin-left: 200px; /* Ensure jumbotron aligns with the content area */
+}
+
+.jumbotron .btn-lg {
+    margin-top: 20px;
+}
+
+.alert {
+    border-radius: 0.25rem;
+}
+
+/* Specific adjustments for headings and cards */
+h1, h2 {
+    margin-top: 20px;
+    margin-left: 20px; /* Add extra margin to push headings further from the left */
+}
+
+.card {
+    margin-left: 20px; /* Add extra margin to push cards further from the left */
+}
+
+/* Footer */
+footer {
+    background-color: #343a40;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    margin-left: 200px; /* Ensure footer aligns with the content area */
+}
+
+/* Logo */
+.logo {
+    width: 40px;
+    height: auto;
+}

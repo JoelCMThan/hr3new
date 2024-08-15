@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Manager Dashboard{% endblock %}
+
+{% block content %}
+<h2>Manager Dashboard</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Total Team Complaints</h5>
+                <p class="card-text">{{ total_team_complaints }}</p>
+                <a href="{{ url_for('manager.team_complaints') }}" class="btn btn-primary">View Team Complaints</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Pending Reviews</h5>
+                <p class="card-text">{{ pending_reviews }}</p>
+                <a href="{{ url_for('manager.team_complaints', status='Pending') }}" class="btn btn-primary">Review Pending</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

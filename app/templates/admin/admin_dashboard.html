@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<h2>Admin Dashboard</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Total Users</h5>
+                <p class="card-text">{{ total_users }}</p>
+                <a href="{{ url_for('admin.manage_users') }}" class="btn btn-primary">Manage Users</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Total Complaints</h5>
+                <p class="card-text">{{ total_complaints }}</p>
+                <a href="{{ url_for('admin.manage_complaints') }}" class="btn btn-primary">Manage Complaints</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Pending Complaints</h5>
+                <p class="card-text">{{ pending_complaints }}</p>
+                <a href="{{ url_for('admin.manage_complaints', status='Pending') }}" class="btn btn-primary">View Pending</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

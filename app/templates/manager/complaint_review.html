@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Review Complaint{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h2>Review Complaint</h2>
+        <p><strong>Title:</strong> {{ complaint.title }}</p>
+        <p><strong>Filed by:</strong> {{ complaint.author.username }}</p>
+        <p><strong>Date Filed:</strong> {{ complaint.date_posted.strftime('%Y-%m-%d') }}</p>
+        <p><strong>Status:</strong> <span class="badge bg-secondary">{{ complaint.status }}</span></p>
+        <p><strong>Description:</strong></p>
+        <p>{{ complaint.description }}</p>
+
+        <form method="POST" action="{{ url_for('manager.complaint_review', complaint_id=complaint.id) }}">
+            {{ form.hidden_tag() }}
+            <div class="mb-3">
+                {{ form.status.label(class="form-label") }}
+                {{ form.status(class="form-select") }}
+            </div>
+            <div class="mb-3">
+                {{ form.notes.label(class="form-label") }}
+                {{ form.notes(class="form-control") }}
+            </div>
+            <button type="submit" class="btn btn-primary">Update Complaint</button>
+        </form>
+
+        <a href="{{ url_for('manager.team_complaints') }}" class="btn btn-secondary mt-3">Back to Team Complaints</a>
+    </div>
+</div>
+{% endblock %}

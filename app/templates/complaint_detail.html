@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Complaint Details{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h2>{{ complaint.title }}</h2>
+        <p><strong>Status:</strong> <span class="badge bg-secondary">{{ complaint.status }}</span></p>
+        <p><strong>Date Filed:</strong> {{ complaint.date_posted.strftime('%Y-%m-%d') }}</p>
+        <p>{{ complaint.description }}</p>
+        <a href="{{ url_for('employee.dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+    </div>
+</div>
+{% endblock %}

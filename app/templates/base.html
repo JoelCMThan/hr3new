@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}HR Complaint System{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="d-flex">
+        {% if current_user.is_authenticated %}
+        <nav class="bg-light sidebar">
+            <div class="sidebar-sticky">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ url_for('employee.dashboard') }}">
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('employee.dashboard') }}">
+                            My Complaints
+                        </a>
+                    </li>
+                    {% if current_user.role == 'manager' %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('manager.manager_dashboard') }}">
+                            Team Complaints
+                        </a>
+                    </li>
+                    {% elif current_user.role == 'admin' %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('admin.admin_dashboard') }}">
+                            Manage Users
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('admin.manage_complaints') }}">
+                            Manage Complaints
+                        </a>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('auth.logout') }}">
+                            Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        {% endif %}
+
+        <div class="container-fluid">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-between">
+                <a class="navbar-brand" href="{% if current_user.is_authenticated %}{{ url_for('employee.dashboard') }}{% else %}{{ url_for('employee.index') }}{% endif %}">
+                    <img src="{{ url_for('static', filename='img/logo.PNG') }}" alt="HR Complaint System Logo" class="logo">
+                    HR Complaint System
+                </a>
+                {% if current_user.is_authenticated %}
+                <div class="d-flex align-items-center">
+                    <span class="navbar-text">
+                        Welcome, {{ current_user.username }}
+                    </span>
+                </div>
+                {% endif %}
+            </nav>
+
+            <div class="container mt-4">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+</body>
+</html>
