@@ -3,9 +3,13 @@
 {% block title %}Manage Complaints{% endblock %}
 
 {% block content %}
-<h2>All Complaints</h2>
+<div class = container> 
 
-<div class="container">
+<h2>All Complaints</h2>
+<div class = container-fluid> 
+
+    <div class = card> 
+
     <form method="GET" action="{{ url_for('admin.manage_complaints') }}" class="mb-3">
         <div class="input-group">
             <input type="text" name="search" class="form-control" placeholder="Search complaints by title or user" value="{{ request.args.get('search', '') }}">
@@ -80,4 +84,7 @@
         </ul>
     </nav>
 </div>
+</div>
+</div>
+
 {% endblock %}

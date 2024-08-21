@@ -4,6 +4,8 @@ from app.forms import ComplaintForm
 from app.models import Complaint
 from flask_login import login_required, current_user
 from app.blueprints.employee import employee
+from app.forms import LeaveApplicationForm
+from app.models import Leave
 
 @employee.route('/')
 @employee.route('/index')
@@ -27,3 +29,20 @@ def new_complaint():
         flash('Your complaint has been submitted.', 'success')
         return redirect(url_for('employee.dashboard'))
     return render_template('complaint_form.html', title='New Complaint', form=form)
+
+@employee.route('/apply_leave', methods=['GET', 'POST'])
+@login_required
+def apply_leave():
+    form = LeaveApplicationForm()
+    if form.validate_on_submit():
+        leave = Leave(
+            user_id=current_user.id,
+            start_date=form.start_date.data,
+            end_date=form.end_date.data,
+            reason=form.reason.data
+        )
+        db.session.add(leave)
+        db.session.commit()
+        flash('Your leave application has been submitted!', 'success')
+        return redirect(url_for('employee.leave_status'))
+    return render_template('apply_leave.html', title='Apply for Leave', form=form)

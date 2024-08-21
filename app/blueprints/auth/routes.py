@@ -5,6 +5,7 @@ from app import db
 from app.models import User
 from app.forms import LoginForm, RegistrationForm
 from app.blueprints.auth import auth
+from app.forms import UpdateProfileForm
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
@@ -40,5 +41,22 @@ def register():
         flash('Your account has been created! You can now log in', 'success')
         return redirect(url_for('auth.login'))
     return render_template('register.html', form=form)
+
+@auth.route('/profile', methods=['GET', 'POST'])
+@login_required
+def profile():
+    form = UpdateProfileForm()
+    if form.validate_on_submit():
+        current_user.username = form.username.data
+        current_user.email = form.email.data
+        if form.password.data:
+            current_user.set_password(form.password.data)
+        db.session.commit()
+        flash('Your profile has been updated!', 'success')
+        return redirect(url_for('auth.profile'))
+    elif request.method == 'GET':
+        form.username.data = current_user.username
+        form.email.data = current_user.email
+    return render_template('profile.html', title='Profile', form=form)
 
 

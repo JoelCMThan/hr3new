@@ -3,6 +3,7 @@ from flask_login import login_required, current_user
 from app import db
 from app.models import User, Complaint
 from app.blueprints.admin import admin
+from app.models import Leave
 
 @admin.route('/admin/dashboard')
 @login_required
@@ -91,3 +92,27 @@ def delete_complaint(complaint_id):
     db.session.commit()
     flash('Complaint has been deleted.', 'success')
     return redirect(url_for('admin.manage_complaints'))
+
+@admin.route('/manage_leaves')
+@login_required
+def manage_leaves():
+    leaves = Leave.query.filter_by(status='Pending').all()
+    return render_template('manage_leaves.html', leaves=leaves)
+
+@admin.route('/approve_leave/<int:leave_id>')
+@login_required
+def approve_leave(leave_id):
+    leave = Leave.query.get_or_404(leave_id)
+    leave.status = 'Approved'
+    db.session.commit()
+    flash('Leave application has been approved.', 'success')
+    return redirect(url_for('admin.manage_leaves'))
+
+@admin.route('/reject_leave/<int:leave_id>')
+@login_required
+def reject_leave(leave_id):
+    leave = Leave.query.get_or_404(leave_id)
+    leave.status = 'Rejected'
+    db.session.commit()
+    flash('Leave application has been rejected.', 'danger')
+    return redirect(url_for('admin.manage_leaves'))

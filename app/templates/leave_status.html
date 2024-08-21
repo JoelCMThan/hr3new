@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mt-4">My Leave Applications</h1>
+
+    <div class="mb-4">
+        <h5>Leave Summary</h5>
+        <ul class="list-group">
+            <li class="list-group-item">Total Leave Applied: {{ total_applied_days }} days</li>
+            <li class="list-group-item">Total Leave Approved: {{ total_approved_days }} days</li>
+            <li class="list-group-item">Total Leave Rejected: {{ total_rejected_days }} days</li>
+            <li class="list-group-item">Total Leave Remaining: {{ total_remaining_days }} days</li>
+        </ul>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Reason</th>
+                <th>Status</th>
+                <th>Application Date</th>
+                <th>Days</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for leave in leaves %}
+            <tr>
+                <td>{{ leave.start_date.strftime('%Y-%m-%d') }}</td>
+                <td>{{ leave.end_date.strftime('%Y-%m-%d') }}</td>
+                <td>{{ leave.reason }}</td>
+                <td>{{ leave.status }}</td>
+                <td>{{ leave.application_date.strftime('%Y-%m-%d') }}</td>
+                <td>{{ leave.leave_days }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -3,8 +3,11 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
-<h2>My Complaints</h2>
 <div class="container">
+<h2>My Complaints</h2>
+<div class="container-fluid">
+    <div class="container">
+
 <a href="{{ url_for('employee.new_complaint') }}" class="btn btn-primary mb-3">Submit New Complaint</a>
 <ul class="list-group">
     {% for complaint in complaints %}
@@ -16,4 +19,7 @@
     {% endfor %}
 </ul>
 </div>
+</div>
+</div>
+
 {% endblock %}

@@ -23,6 +23,11 @@
                             My Complaints
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('auth.profile') }}">
+                            Profile
+                        </a>
+                    </li>
                     {% if current_user.role == 'manager' %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('manager.manager_dashboard') }}">
@@ -40,7 +45,21 @@
                             Manage Complaints
                         </a>
                     </li>
+
                     {% endif %}
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('employee.apply_leave') }}">Apply for Leave</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('employee.leave_status') }}">My Leave</a>
+                    </li>
+                    {% if current_user.role == 'admin' %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('admin.manage_leaves') }}">Manage Leaves</a>
+                    </li>
+                    {% endif %}
+
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('auth.logout') }}">
                             Logout
